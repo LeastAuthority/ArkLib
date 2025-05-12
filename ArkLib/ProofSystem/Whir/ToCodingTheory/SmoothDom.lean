@@ -7,9 +7,9 @@ import ArkLib.Data.CodingTheory.ReedSolomon
 
 namespace SmoothDomain
 
-open Polynomial Finset ReedSolomon LinearMap
+open Finset
 
-variable {F : Type*} [Field F] {n : ℕ} {domain : Fin n ↪ F}
+variable {F : Type*} [Semiring F] {n : ℕ} {domain : Fin n ↪ F}
 
 /-- A finite subset `L : Finset F` of a field `F` is smooth if
     1. its cardinality is a power of two, and
