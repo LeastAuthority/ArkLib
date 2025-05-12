@@ -45,7 +45,7 @@ noncomputable def pow : Fin m → Polynomial F :=
 
 /- For an univariate polynomial of degree < 2ᵐ, we have
    linearMvExtension[p](X^(2⁰),X^(2¹),...,X^(2⁽ᵐ⁻¹⁾) = p(X)-/
-lemma pow_is_left_inverse (p : Polynomial.degreeLT F (2 ^ m)) :
+lemma pow_is_right_inverse (p : Polynomial.degreeLT F (2 ^ m)) :
   MvPolynomial.eval₂
     (Polynomial.C : F →+* Polynomial F)
     pow
