@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Least Authority
 -/
 import ArkLib.Data.CodingTheory.ReedSolomon
+import ArkLib.Data.CodingTheory.RelativeHammingDistance
 
 section FieldRSC
 
@@ -35,5 +36,22 @@ noncomputable def rate (_C : code domain deg) : ℝ := deg / (Fintype.card (Fin 
 def domainComplement [Fintype F] [DecidableEq F] (_C : code domain deg) : Finset F :=
   let domain_finset : Finset F := (univ : Finset (Fin n)).image domain
   Finset.univ \ domain_finset
+
+-- TODO: THIS SHOULD BE IN ReedSolomon.lean
+-- Nethermind provided conflicting definitions for LinarCodes
+-- This is for the one in
+--   import ArkLib.Data.CodingTheory.LinarCodes
+/--
+The Reed–Solomon code of degree `deg` and evaluation domain `domain`
+viewed as a generic `LinearCode` of length `n` over `F`.
+
+def toLinearCode : LinearCode n F :=
+  ReedSolomon.code domain deg
+-/
+
+-- The one in import ArkLib.Data.CodingTheory.RelativeHammingDistance
+def toLinearCode : LinearCode (Fin n) F :=
+  code domain deg
+
 
 end FieldRSC
