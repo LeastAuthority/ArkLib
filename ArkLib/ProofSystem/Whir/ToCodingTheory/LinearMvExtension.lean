@@ -41,7 +41,7 @@ noncomputable def linearMvExtended
 
 /- X → (X^(2⁰),X^(2¹),...,X^(2⁽ᵐ⁻¹⁾) -/
 noncomputable def pow : Fin m → Polynomial F :=
-  fun j : Fin m => (Polynomial.X : Polynomial F) ^ (2 ^ (j : ℕ))
+  fun j : Fin m => Polynomial.X  ^ (2 ^ (j : ℕ))
 
 /- For an univariate polynomial of degree < 2ᵐ, we have
    linearMvExtension[p](X^(2⁰),X^(2¹),...,X^(2⁽ᵐ⁻¹⁾) = p(X)-/
