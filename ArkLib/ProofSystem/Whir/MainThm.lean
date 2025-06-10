@@ -36,7 +36,7 @@ structure Params (F : Type) where
   h_m : m = varCount₀
   h_sumkLt : ∑ i : Fin M, varCountᵢ ≤ m
   h_varCount_i : ∀ i : Fin M, i ≠ 0, varCountᵢ = m - ∑ j < i foldingParamⱼ
-  h_smooth : each φᵢ must be a smooth evaluation domain
+  h_smooth : each φᵢ must embed a smooth evaluation domain
   h_repeatPLt : ∀ i : Fin M, repeatParamᵢ ≤ |ιᵢ| -/
 structure ParamConditions (P : Params ι F) where
   m : ℕ -- m = P.varCount 0
@@ -95,7 +95,7 @@ class GenMutualCorrParams (P: Params ι F) (S: ∀ i : Fin M, Finset (ι i)) whe
   hδLe : ∀ i : Fin M, (δ i) ≤ 1 - Finset.univ.sup (fun j => BStar i j (C i j) 2)
 
   hlistDecode : ∀ i : Fin M, ∀ j : Fin (P.foldingParam i),
-    listDecodable (C i j) (dist i j) (δ i)
+    listDecodable (C i j) (δ i) (dist i j)
 
 section RBR
 open OracleComp OracleSpec ProtocolSpec NNRat
@@ -105,15 +105,15 @@ variable {n : ℕ}
   M degree parameters `varCountᵢ` -/
 structure Statement
   (F : Type)[Field F][Fintype F][DecidableEq F]
-  (ι : Fin M → Type) [∀ i : Fin M, Fintype (ι i)]
-  (varCount : Fin M → ℕ)
+  (ι : Type) [Fintype ι]
+  (varCount : ℕ)
 
 /--`OStmtOut` defines the oracle message type for a multi-indexed setting:
   given index type `ιₛ`, base input type `ι₀`, and field `F`, the output type at each index `i : ιₛ`
   is a function `ι₀ → F` representing an evaluation over `ι₀`.-/
 @[reducible]
-def OStmtOut (ιₛ ι₀ F : Type) : ιₛ → Type :=
-    fun _ => ι₀ → F
+def OStmtOut (ιₛ ι F : Type) : ιₛ → Type :=
+    fun _ => ι → F
 
 /-- **Round-by-round soundness of the WHIR Vector IOPP**-/
 theorem whir_rbr_soundness
@@ -143,7 +143,8 @@ theorem whir_rbr_soundness
     (ε_shift : Fin M → ℝ≥0) (ε_fin : ℝ≥0) :
     -- ∃ a Vector IOPP π with Statement = (F ι varCount), Witness = Unit, OStmtOut = (ιₛ ι₀ F)
       ∃ π :
-        VectorIOP vPSpec F oSpec (Statement F ι P.varCount) Unit (OStmtOut ιₛ (ι ⟨0, Fact.out⟩) F),
+        VectorIOP vPSpec F oSpec (Statement F (ι ⟨0, Fact.out⟩) (P.varCount ⟨0, Fact.out⟩))
+          Unit (OStmtOut ιₛ (ι ⟨0, Fact.out⟩) F),
         let maxDeg := (Finset.univ : Finset (Fin m_0)).sup (fun i => wPoly₀.degreeOf (Fin.succ i))
       -- dstar = (1 + deg_Z(wPoly₀) + max_{i < m_0} deg_X(wPoly₀))
         let dstar := 1 + (wPoly₀.degreeOf 0) + maxDeg
