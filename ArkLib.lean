@@ -82,9 +82,6 @@ import ArkLib.ProofSystem.DSL
 import ArkLib.ProofSystem.Fri.RoundConsistency
 import ArkLib.ProofSystem.Plonk.Basic
 import ArkLib.ProofSystem.Spartan.Basic
-import ArkLib.ProofSystem.Sumcheck.Impl.Basic
-import ArkLib.ProofSystem.Sumcheck.Spec.General
-import ArkLib.ProofSystem.Sumcheck.Spec.SingleRound
 import ArkLib.ProofSystem.Stir
 import ArkLib.ProofSystem.Stir.Combine
 import ArkLib.ProofSystem.Stir.Folding
@@ -93,6 +90,9 @@ import ArkLib.ProofSystem.Stir.OutOfDomSmpl
 import ArkLib.ProofSystem.Stir.ProximityBound
 import ArkLib.ProofSystem.Stir.ProximityGap
 import ArkLib.ProofSystem.Stir.Quotienting
+import ArkLib.ProofSystem.Sumcheck.Impl.Basic
+import ArkLib.ProofSystem.Sumcheck.Spec.General
+import ArkLib.ProofSystem.Sumcheck.Spec.SingleRound
 import ArkLib.ProofSystem.Whir
 import ArkLib.ProofSystem.Whir.BlockRelDistance
 import ArkLib.ProofSystem.Whir.Folding
